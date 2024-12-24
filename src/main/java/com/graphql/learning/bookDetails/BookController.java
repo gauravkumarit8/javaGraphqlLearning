@@ -1,5 +1,6 @@
 package com.graphql.learning.bookDetails;
 
+import com.graphql.learning.exception.PermissionDeniedException;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -12,11 +13,12 @@ class BookController {
     //DatafetchingEnvironment is use to getting the other part of the request body query.
     @QueryMapping
     public Book bookById(@Argument String id, DataFetchingEnvironment environment) {
-        String operationName= environment.getOperationDefinition().getName();
-        //only allow if the operation name is bookDetails
-        if(!"bookDetails".equals(operationName)){
-            throw new RuntimeException("Permission denied..");
+        String operationName = environment.getOperationDefinition().getName();
+
+        if (!"bookDetails".equals(operationName)) {
+            throw new PermissionDeniedException("Permission denied. Only 'bookDetails' operation is allowed.");
         }
+
         return Book.getById(id);
     }
 
