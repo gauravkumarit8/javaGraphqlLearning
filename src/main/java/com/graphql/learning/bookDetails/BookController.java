@@ -7,6 +7,8 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 @Controller
 class BookController {
 
@@ -21,6 +23,16 @@ class BookController {
 
         return Book.getById(id);
     }
+
+    @QueryMapping(name = "getByAuthorName")  // Match the schema field name
+    public List<Book> getByAuthorName(@Argument String authorName, DataFetchingEnvironment environment) {
+        String operatorName = environment.getOperationDefinition().getName();
+        if (!"BookByAuthor".equals(operatorName)) {
+            throw new PermissionDeniedException("Permission denied. Only 'BookByAuthor' operation is allowed.");
+        }
+        return Book.getByAuthorName(authorName);
+    }
+
 
     @SchemaMapping
     public Author author(Book book) {
