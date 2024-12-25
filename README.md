@@ -40,6 +40,17 @@ query BookByAuthor {
 
 ```
 
+### *For `totalBookCount` Function*
+
+**Request Body:**
+
+```graphql
+query totalBookCount {
+    totalBook
+}
+
+```
+
 ### *For `bookByUserName` Function*
 
 **Request Body:**
