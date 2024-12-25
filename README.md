@@ -21,7 +21,7 @@ query bookDetails {
 }
 ```
 
-### *For `getBookById` Function*
+### *For `getBookByAuthor` Function*
 
 **Request Body:**
 
@@ -36,6 +36,26 @@ query BookByAuthor {
       lastName
     }
   }
+}
+
+```
+
+### *For `bookByUserName` Function*
+
+**Request Body:**
+
+```graphql
+query bookByBookName {
+    bookByUserName(bookName: "Moby Dick") {
+        id
+        name
+        pageCount
+        author {
+            id
+            firstName
+            lastName
+        }
+    }
 }
 
 ```
