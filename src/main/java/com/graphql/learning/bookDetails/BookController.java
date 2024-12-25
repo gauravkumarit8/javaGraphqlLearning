@@ -42,6 +42,15 @@ class BookController {
         return Book.bookByName(bookName);
     }
 
+    //same function name should be provided in the graphql schema query type with the datatype
+    @QueryMapping
+    public Integer totalBook(DataFetchingEnvironment environment){
+        String operatorName= environment.getOperationDefinition().getName();
+        if(!"totalBookCount".equals(operatorName)){   //this is the operator name expected.
+            throw new PermissionDeniedException("Permission denied. Only 'totalBookCount' operator is allowed");
+        }
+        return Book.totalNoOfBooks();//this function name can be anything
+    }
 
     @SchemaMapping
     public Author author(Book book) {

@@ -28,4 +28,8 @@ record Book(String id, String name, int pageCount, String authorId) {
         return books.stream().filter(rana->rana.name.equals(bookName)).findFirst().orElse(null);
     }
 
+    public static Integer totalNoOfBooks(){
+        return books.size();
+    }
+
 }

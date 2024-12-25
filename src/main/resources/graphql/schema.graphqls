@@ -2,6 +2,7 @@ type Query {
   bookById(id: ID): Book
   getByAuthorName(authorName: String) : [Book]
   bookByUserName(bookName: String): Book
+  totalBook: Int   #  inside the query this name is expected.
 }
 
 type Book {
