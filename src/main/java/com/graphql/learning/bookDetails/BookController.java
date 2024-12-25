@@ -33,6 +33,15 @@ class BookController {
         return Book.getByAuthorName(authorName);
     }
 
+    @QueryMapping
+    public Book bookByUserName(@Argument String bookName, DataFetchingEnvironment environment) {
+        String operatorName = environment.getOperationDefinition().getName();
+        if (!"bookByBookName".equals(operatorName)) {
+            throw new PermissionDeniedException("Permission denied. Only 'bookByName' operator is allowed");
+        }
+        return Book.bookByName(bookName);
+    }
+
 
     @SchemaMapping
     public Author author(Book book) {

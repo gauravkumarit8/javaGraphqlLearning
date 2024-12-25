@@ -24,4 +24,8 @@ record Book(String id, String name, int pageCount, String authorId) {
         }).collect(Collectors.toList());
     }
 
+    public static Book bookByName(String bookName){
+        return books.stream().filter(rana->rana.name.equals(bookName)).findFirst().orElse(null);
+    }
+
 }
